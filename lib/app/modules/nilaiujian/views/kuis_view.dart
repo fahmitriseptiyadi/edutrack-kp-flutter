@@ -1,5 +1,6 @@
 // import 'package:edutrack/app/modules/nilaiujian/controllers/nilaiujian_controller.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/nilaiujian_controller.dart';
@@ -44,7 +45,7 @@ class KuisView extends GetView<NilaiujianController> {
             return Center(
               child: Obx(() {
                 if (_controller.score.value == 0.0) {
-                  return CircularProgressIndicator();
+                  return CupertinoActivityIndicator();
                 } else {
                   return Text(
                     'Score: ${_controller.score.value.toStringAsFixed(2)}',

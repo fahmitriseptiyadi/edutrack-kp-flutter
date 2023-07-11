@@ -13,7 +13,8 @@ void main() async {
 
   runApp(
     GetMaterialApp(
-      title: "Application",
+      debugShowCheckedModeBanner: false,
+      title: "Edutrack",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),
