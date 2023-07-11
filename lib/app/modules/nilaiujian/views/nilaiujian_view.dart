@@ -75,10 +75,11 @@ class NilaiujianView extends GetView<NilaiujianController> {
               onTap: () {
                 // Action when Kuis is tapped
                 // Navigate to a specific page
-                Get.to(() => nilai_kuis());
-
+                // Get.to(() => nilai_kuis());
                 print('Kuis Scores Page Pressed');
-                // Get.offAll(KuisView());
+                showWaitSnackbar();
+
+                Get.offAll(KuisView());
               },
             ),
             GridItem(
@@ -149,4 +150,14 @@ class GridItem extends StatelessWidget {
       ),
     );
   }
+}
+
+showWaitSnackbar() async {
+  Get.snackbar(
+    'Wait',
+    'Fetching data...',
+    snackPosition: SnackPosition.BOTTOM,
+    backgroundColor: greenColor,
+    colorText: whiteColor,
+  );
 }

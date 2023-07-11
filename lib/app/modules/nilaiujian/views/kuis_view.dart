@@ -1,12 +1,14 @@
-import 'package:edutrack/app/modules/nilaiujian/controllers/nilaiujian_controller.dart';
+// import 'package:edutrack/app/modules/nilaiujian/controllers/nilaiujian_controller.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
 import 'package:flutter/material.dart';
+
+import '../controllers/nilaiujian_controller.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../constants.dart';
 
-class nilai_kuis extends GetView<NilaiujianController> {
+class KuisView extends GetView<NilaiujianController> {
   @override
   Widget build(BuildContext context) {
     final NilaiujianController _controller = Get.put(NilaiujianController());
@@ -47,6 +49,7 @@ class nilai_kuis extends GetView<NilaiujianController> {
                   return Text(
                     'Score: ${_controller.score.value.toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 16),
+                    
                   );
                 }
               }),
