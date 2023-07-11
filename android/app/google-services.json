@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "382070062513",
+    "project_id": "edutol-e6ed0",
+    "storage_bucket": "edutol-e6ed0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382070062513:android:84280f7a943974e34d1190",
+        "android_client_info": {
+          "package_name": "com.fhmup.edutrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382070062513-37kb3e3k4i5qf3bopvmqj3b5bko34f13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRkrts_McobJmxHqIEEv70laSBBnn21b8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382070062513-37kb3e3k4i5qf3bopvmqj3b5bko34f13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
