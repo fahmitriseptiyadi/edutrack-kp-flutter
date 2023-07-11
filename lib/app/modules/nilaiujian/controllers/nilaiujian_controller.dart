@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../../constants.dart';
 
 class NilaiujianController extends GetxController {
-  //TODO: Implement NilaiUjianController
 
   final Dio _dio = Dio();
 
@@ -18,6 +17,14 @@ class NilaiujianController extends GetxController {
 
   void showKuis() async {
     try {
+      Get.snackbar(
+        'Wait',
+        'Loading data...',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: greenColor,
+        colorText: whiteColor,
+      );
+
       _dio.options.headers['Content-type'] = 'application/json';
       final authToken =
           'eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2ODgzNTQ1MDEsImV4cCI6MTY5MDk0NjUwMSwiYXVkIjoiaHR0cHM6Ly9lZGJ4LnBpbmlzaS5pbyIsImlzcyI6ImV4cHJlc3MiLCJzdWIiOiI2MTNmOTQ4MjczN2JhZjdhNDM4MjEyNTciLCJqdGkiOiIxMDI2ZmNhYy0zNjBjLTQyOGMtOTA2ZC03OTZmMDUwYmUxNGMifQ.81pXqOaRMMMWXRjA2P0XFXFFHcokal38eSBNP_MDS8U';
@@ -30,7 +37,7 @@ class NilaiujianController extends GetxController {
 
       final responseData = response.data as Map<String, dynamic>;
       final data = responseData['data'] as List<dynamic>;
-      if ( data.isNotEmpty) {
+      if (data.isNotEmpty) {
         final scoreData = data[0]['score'] as double;
         print("Score retrieved: $scoreData");
         score.value = scoreData; // Update the score value
