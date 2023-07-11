@@ -76,6 +76,7 @@ class NilaiujianView extends GetView<NilaiujianController> {
                 // Action when Kuis is tapped
                 // Navigate to a specific page
                 Get.to(() => nilai_kuis());
+
                 print('Kuis Scores Page Pressed');
                 // Get.offAll(KuisView());
               },
