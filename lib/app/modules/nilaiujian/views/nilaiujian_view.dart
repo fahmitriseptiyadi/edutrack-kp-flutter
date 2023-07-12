@@ -159,5 +159,6 @@ showWaitSnackbar() async {
     snackPosition: SnackPosition.BOTTOM,
     backgroundColor: greenColor,
     colorText: whiteColor,
+    duration: Duration(seconds: 3),
   );
 }
