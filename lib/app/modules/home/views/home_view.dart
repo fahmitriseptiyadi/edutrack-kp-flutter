@@ -1,357 +1,374 @@
-import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/rendering.dart';
+
 import 'package:get/get.dart';
 
-import '../../../../constants.dart';
 import '../controllers/home_controller.dart';
 
-final HomeController homeController = Get.put(HomeController());
-
 class HomeView extends GetView<HomeController> {
-  HomeView({Key? key}) : super(key: key);
+final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      body: _upBarBody(),
-      bottomNavigationBar: Obx(
-        () => BottomAppBar(
-          notchMargin: 10,
-          color: greyColor,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+        backgroundColor: Color.fromARGB(225, 255, 255, 255),
+        body: _homeBody(mediaQuery));
+  }
+
+  Widget _homeBody(MediaQueryData mediaQuery) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Column(
             children: [
-              IconButton(
-                icon: Icon(Icons.home,
-                    color: controller.currentPage.value == 0
-                        ? Colors.green
-                        : Colors.black),
-                onPressed: () {
-                  controller.changePage(0);
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.note_rounded,
-                    color: controller.currentPage.value == 1
-                        ? Colors.green
-                        : Colors.black),
-                onPressed: () {
-                  controller.changePage(1);
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.people,
-                    color: controller.currentPage.value == 2
-                        ? Colors.green
-                        : Colors.black),
-                onPressed: () {
-                  controller.changePage(2);
-                },
-              ),
+              _buildHeader(mediaQuery),
+              _buildBanner(mediaQuery),
+              _buildGridView(mediaQuery),
+              Obx(() {
+                return _buildBottomNavBar(mediaQuery);
+              })
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHeader(MediaQueryData mediaQuery) {
+    return Container(
+      height: mediaQuery.size.height * 0.2,
+      padding: EdgeInsets.only(
+          top: mediaQuery.size.height * 0.03,
+          left: mediaQuery.size.width * 0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(mediaQuery.size.width * 0.06),
+          bottomRight: Radius.circular(mediaQuery.size.width * 0.06),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade600,
+            offset: Offset(0, 4),
+            blurRadius: mediaQuery.size.width * 0.08,
+          ),
+        ],
+        color: Color.fromARGB(255, 2, 65, 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: mediaQuery.size.height * 0.01,
+          ),
+          Row(
+            children: [
+              _buildAvatar(mediaQuery),
+              SizedBox(
+                width: mediaQuery.size.width * 0.03,
+              ),
+              _buildUserInfo(mediaQuery)
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                child: SizedBox(
+                  // height: mediaQuery.size.height * 0.0,
+                  width: mediaQuery.size.width * 0.11,
+                ),
+              ),
+              _buildClassSelection(mediaQuery),
+              _buildYearSelection(mediaQuery)
+            ],
+          )
+        ],
       ),
     );
   }
-}
 
-Widget _upBarBody() {
-  return LayoutBuilder(
-    builder: (context, constraints) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight * 0.2,
-              padding: EdgeInsets.fromLTRB(0, 20.0, 0, 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(25.0),
-                  bottomRight: Radius.circular(25.0),
-                ),
-                color: greendarkColor,
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: constraints.maxWidth * 0.3,
-                    height: constraints.maxHeight * 0.08,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: whiteColor,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        width: constraints.maxWidth * 0.7,
-                        height: constraints.maxHeight * 0.03,
-                        child: Text(
-                          'Assalamualaikum, Orang tua/Wali',
-                          style: TextStyle(color: Colors.white, fontSize: 10),
-                        ),
-                      ),
-                      Container(
-                        width: constraints.maxWidth * 0.7,
-                        height: constraints.maxHeight * 0.03,
-                        child: Text(
-                          'Fahmi',
-                          style: TextStyle(
-                            color: whiteColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 15.0),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 30.0, 0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Text(
-                                'Kelas',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 40.0),
-                            Container(
-                              width: 60,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 157, 219, 138),
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Obx(() {
-                                return DropdownButton<String>(
-                                  padding: EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                                  value: homeController.selectedClass.value,
-                                  onChanged: (newValue) {
-                                    homeController.selectedClass.value =
-                                        newValue!;
-                                  },
-                                  isExpanded: true,
-                                  style: TextStyle(
-                                    color: const Color.fromARGB(255, 2, 65, 2),
-                                    fontSize: 15,
-                                  ),
-                                  items: homeController.classes
-                                      .map<DropdownMenuItem<String>>(
-                                        (String value) =>
-                                            DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      )
-                                      .toList(),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      // Container(
-                      //   margin: EdgeInsets.fromLTRB(0, 0, 30.0, 0),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       Container(
-                      //         child: Text(
-                      //           'Tahun Ajaran',
-                      //           style: TextStyle(
-                      //             color: Colors.white,
-                      //             fontSize: 10,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       SizedBox(width: 40.0),
-                      //       Container(
-                      //         width: 60,
-                      //         height: 20,
-                      //         decoration: BoxDecoration(
-                      //           color: Color.fromARGB(255, 157, 219, 138),
-                      //           borderRadius: BorderRadius.circular(20.0),
-                      //         ),
-                      //         child: Obx(() {
-                      //           return DropdownButton<String>(
-                      //             padding: EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                      //             value: homeController.selectedYear.value,
-                      //             onChanged: (newValue) {
-                      //               homeController.selectedYear.value =
-                      //                   newValue!;
-                      //             },
-                      //             isExpanded: true,
-                      //             style: TextStyle(
-                      //               color: const Color.fromARGB(255, 2, 65, 2),
-                      //               fontSize: 15,
-                      //             ),
-                      //             items: homeController.years
-                      //                 .map<DropdownMenuItem<String>>(
-                      //                   (String value) =>
-                      //                       DropdownMenuItem<String>(
-                      //                     value: value,
-                      //                     child: Text(
-                      //                       value,
-                      //                       textAlign: TextAlign.center,
-                      //                     ),
-                      //                   ),
-                      //                 )
-                      //                 .toList(),
-                      //           );
-                      //         }),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 200),
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              padding: EdgeInsets.all(16),
-              children: [
-                // ! Baris pertama
-                IconItem(
-                  icon: Icons.wallet,
-                  label: 'Biaya Sekolah',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon baiya sekolah ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.alarm,
-                  label: 'Kehadiran',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon kehadiran ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.stacked_bar_chart,
-                  label: 'Progress',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon progress ditekan');
-                  },
-                ),
+  Widget _buildAvatar(MediaQueryData mediaQuery) {
+    return Container(
+      padding: EdgeInsets.only(top: mediaQuery.size.height * 0.02),
+      child: CircleAvatar(
+        backgroundColor: Colors.white,
+        radius: mediaQuery.size.height * 0.04,
+        child: Obx(() {
+          final username = homeController.studentName.value;
+          final initials = username.isNotEmpty ? username.substring(0, 2) : '';
+          return Text(
+            initials,
+            style: TextStyle(fontSize: mediaQuery.size.width * 0.08),
+          );
+        }),
+      ),
+    );
+  }
 
-                // !Baris kedua
-                IconItem(
-                  icon: Icons.book,
-                  label: 'Nilai Ujian',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    Get.to(() => NilaiujianView());
-                    print('Ikon nilai ujian ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.school_rounded,
-                  label: 'eRapor',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon eRapor ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.edit_square,
-                  label: 'Tugas',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon tugas ditekan');
-                  },
-                ),
-
-                // !Baris ketiga
-                IconItem(
-                  icon: Icons.calendar_month_rounded,
-                  label: 'Jadwal Pelajaran',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon jadwal pelajaran ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.chat_rounded,
-                  label: 'Lembar Komunikasi',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon lembar komunikasi ditekan');
-                  },
-                ),
-                IconItem(
-                  icon: Icons.volume_up,
-                  label: 'Pengumuman',
-                  onTap: () {
-                    // Logika atau aksi yang ingin dilakukan saat ikon Home ditekan
-                    print('Ikon pengumuman ditekan');
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
-
-class IconItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final Function()? onTap;
-
-  IconItem({required this.icon, required this.label, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap, // Menggunakan onTap yang diterima dari constructor
+  Widget _buildUserInfo(MediaQueryData mediaQuery) {
+    return Container(
       child: Column(
         children: [
           Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: greyColor,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2), // Warna bayangan
-                  spreadRadius: 2, // Penyebaran bayangan
-                  blurRadius: 4, // Kekaburan bayangan
-                  offset: Offset(0, 2), // Posisi bayangan (x, y)
-                ),
-              ],
+            alignment: Alignment.centerLeft,
+            width: mediaQuery.size.width * 0.5,
+            child: Text(
+              'Assalamualaikum, Orang tua/wali',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: mediaQuery.size.width * 0.03,
+              ),
             ),
-            child: Icon(icon, size: 50, color: Colors.black),
           ),
-          SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(fontSize: 11, color: greendarkColor),
+          SizedBox(
+            height: mediaQuery.size.height * 0.006,
           ),
+          Container(
+              alignment: Alignment.centerLeft,
+              width: mediaQuery.size.width * 0.5,
+              child: Obx(() {
+                final studentName = homeController.studentName.value;
+                return Text(
+                  studentName.isNotEmpty ? studentName : 'Student Name',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: mediaQuery.size.width * 0.06,
+                      fontWeight: FontWeight.bold),
+                );
+              })),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [],
+          )
         ],
       ),
+    );
+  }
+
+  Widget _buildClassSelection(MediaQueryData mediaQuery) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            child: Text(
+              'Kelas',
+              style: TextStyle(
+                  color: Colors.white, fontSize: mediaQuery.size.width * 0.03),
+            ),
+          ),
+          SizedBox(
+            width: mediaQuery.size.width * 0.03,
+          ),
+          Container(
+            width: mediaQuery.size.width * 0.14,
+            height: mediaQuery.size.height * 0.03,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.circular(mediaQuery.size.width * 0.06)),
+            child: Obx(() {
+              return DropdownButton<String>(
+                  padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  value: homeController.selectedClass.value,
+                  onChanged: (newValue) {
+                    homeController.selectedClass.value = newValue!;
+                  },
+                  isExpanded: true,
+                  items: homeController.classes
+                      .map<DropdownMenuItem<String>>(
+                          (String value) => DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: mediaQuery.size.width * 0.03),
+                                ),
+                              ))
+                      .toList());
+            }),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildYearSelection(MediaQueryData mediaQuery) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            child: Text(
+              'Tahun ajaran',
+              style: TextStyle(
+                  color: Colors.white, fontSize: mediaQuery.size.width * 0.03),
+            ),
+          ),
+          SizedBox(
+            width: mediaQuery.size.width * 0.03,
+          ),
+          Container(
+            width: mediaQuery.size.width * 0.24,
+            height: mediaQuery.size.height * 0.03,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.circular(mediaQuery.size.width * 0.06)),
+            child: Obx(() {
+              return DropdownButton<String>(
+                  padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  value: homeController.selectedYear.value,
+                  onChanged: (newValue) {
+                    homeController.selectedYear.value = newValue!;
+                  },
+                  isExpanded: true,
+                  items: homeController.years
+                      .map<DropdownMenuItem<String>>(
+                          (String value) => DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: mediaQuery.size.width * 0.03),
+                                ),
+                              ))
+                      .toList());
+            }),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBanner(MediaQueryData mediaQuery) {
+    return Container(
+      width: mediaQuery.size.width,
+      height: mediaQuery.size.height * 0.22,
+      decoration: BoxDecoration(color: Color.fromARGB(0, 255, 255, 255)),
+    );
+  }
+
+  Widget _buildGridView(MediaQueryData mediaQueary) {
+    return GridView.builder(
+      padding: EdgeInsets.all(mediaQueary.size.width * 0.04),
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: mediaQueary.size.width * 0.06,
+          mainAxisSpacing: mediaQueary.size.width * 0.08),
+      itemCount: 9,
+      itemBuilder: (context, index) {
+        List<String> itemDesc = [
+          'Biaya Sekolah',
+          'Kehadiran',
+          'Progress',
+          'Nilai Ujian',
+          'eRapor',
+          'Tugas',
+          'Jadwal Pelajaran',
+          'Lembar Komunikasi',
+          'Pengumuman'
+        ];
+
+        List<IconData> listIcon = [
+          Icons.account_balance_wallet,
+          Icons.alarm,
+          Icons.bar_chart,
+          Icons.book,
+          Icons.school,
+          Icons.task,
+          Icons.calendar_month,
+          Icons.chat_bubble,
+          Icons.volume_up
+        ];
+
+        return GestureDetector(
+          onTap: () {
+            // Handle the box press event
+            // print('Box ${index + 1} pressed.');
+            if (index == 0) {
+              //page biaya sekolah
+            } else if (index == 1) {
+              //page kehadiran
+            } else if (index == 2) {
+              //page progress
+            } else if (index == 3) {
+              //page nilai ujian
+              Get.toNamed('/result');
+            } else if (index == 4) {
+              //page eRapor
+            } else if (index == 5) {
+              //page tugas
+            } else if (index == 6) {
+              //page jadwal pelajaran
+            } else if (index == 7) {
+              //page lembar komunikasi
+            } else if (index == 8) {
+              //page pengumuman
+            }
+          },
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  key: ValueKey('item_$index'),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(mediaQueary.size.width * 0.06),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade600,
+                        offset: Offset(0, 4),
+                        blurRadius: mediaQueary.size.width * 0.03,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Icon(
+                      listIcon[index],
+                      color: Colors.black,
+                      size: mediaQueary.size.width * 0.12,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                  height: mediaQueary.size.height *
+                      0.01), // Adjust the spacing as needed
+              Text(
+                itemDesc[index],
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: mediaQueary.size.width * 0.03,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBottomNavBar(MediaQueryData mediaQuery) {
+    return BottomNavigationBar(
+      currentIndex: controller.selectedTabIndex.value,
+      onTap: (index) {
+        controller.selectedTabIndex.value = index;
+      },
+      backgroundColor: Color.fromARGB(225, 255, 255, 255),
+      selectedItemColor: Color.fromARGB(255, 2, 65, 2),
+      unselectedItemColor: Colors.grey,
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.task), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: '')
+      ],
     );
   }
 }

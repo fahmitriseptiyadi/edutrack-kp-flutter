@@ -1,0 +1,1 @@
+typedef AppPreferencesListener = void Function(dynamic value);

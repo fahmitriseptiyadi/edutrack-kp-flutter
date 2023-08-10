@@ -1,5 +1,4 @@
 {
-    "parentId": "",
     "username": "",
     "email": "",
     "password": "",
@@ -7,4 +6,4 @@
     "role": [],
     "institutionIds": "",
     "studyGroupIds": ""
-}
+  }

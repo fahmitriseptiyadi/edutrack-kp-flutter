@@ -4,7 +4,7 @@ import 'package:edutrack/app/modules/nilaiujian/views/kuis_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilai_uas_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilai_uts_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/ulangan_view.dart';
-import 'package:edutrack/constants.dart';
+import 'package:edutrack/app/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

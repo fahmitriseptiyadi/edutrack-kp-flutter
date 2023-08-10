@@ -2,7 +2,7 @@ import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../constants.dart';
+import '../../../config/constants.dart';
 import '../controllers/nilaiujian_controller.dart';
 
 class NilaiUtsView extends GetView<NilaiujianController> {

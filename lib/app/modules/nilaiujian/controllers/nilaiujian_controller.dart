@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
 import 'package:get/get.dart';
-import '../../../../constants.dart';
+import '../../../config/constants.dart';
 
 class NilaiujianController extends GetxController {
   final Dio _dio = Dio();

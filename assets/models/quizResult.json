@@ -1,0 +1,250 @@
+{
+    "total": 1,
+    "limit": 10,
+    "skip": 0,
+    "data": [
+        {
+            "_id": "60e50ecc994dd9cb2dcfd424",
+            "answers": [
+                {
+                    "id": "60de7e4f72ab7044896c6199",
+                    "answer": "xcghh",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "cps",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "xcghh"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60de7e55ee9b734479861ffe",
+                    "answer": "fggg",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "cps",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "fggg"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60de7ebc72ab7044896c619b",
+                    "answer": "8",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "cpn",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "8"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60de7ebfee9b734479861fff",
+                    "answer": "25",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "cpn",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "25"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60de7f21ee9b734479862000",
+                    "answer": "ffggh",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "essay",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "ffggh"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60de7f4472ab7044896c619c",
+                    "answer": "fghh",
+                    "state": "dijawab",
+                    "isCorrect": false,
+                    "type": "essay",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "fghh"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": []
+                },
+                {
+                    "id": "60dc24e572ab7044896c6184",
+                    "answer": "b",
+                    "state": "90",
+                    "isCorrect": false,
+                    "type": "pg",
+                    "score": [
+                        "0"
+                    ],
+                    "answers": [
+                        "b"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": [
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "60dc24f172ab7044896c6185",
+                    "answer": "a",
+                    "state": "90",
+                    "isCorrect": true,
+                    "type": "pg",
+                    "score": [
+                        "1"
+                    ],
+                    "answers": [
+                        "a"
+                    ],
+                    "shuffled_key": [],
+                    "shuffled_col_key": [],
+                    "match_answers": [
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        },
+                        {
+                            "answer": "",
+                            "start_position": {
+                                "dx": null,
+                                "dy": null
+                            },
+                            "end_position": {
+                                "dx": null,
+                                "dy": null
+                            }
+                        }
+                    ]
+                }
+            ],
+            "kds": [],
+            "createdBy": "60daaced8107c72c512d7734",
+            "updatedBy": "60d42e16615cc552158a09b0",
+            "institutionId": "60d40a25615cc552158a09a9",
+            "quizId": "60de806472ab7044896c619d",
+            "studentId": "60daaced8107c72c512d7734",
+            "status": "published",
+            "period": {
+                "year": 2021,
+                "semester": null
+            },
+            "correct": 1,
+            "wrong": 7,
+            "unanswered": 0,
+            "score": 12.5,
+            "remaining": "19",
+            "blocked_status": "free",
+            "createdAt": "2021-07-07T02:17:48.604Z",
+            "updatedAt": "2021-07-07T02:17:48.604Z",
+            "__v": 0
+        }
+    ]
+}

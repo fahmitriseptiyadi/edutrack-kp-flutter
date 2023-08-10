@@ -1,0 +1,46 @@
+
+{
+    "_id": "",
+    "role": [2],
+    "status": "",
+    "enrollmentIds": [""],
+    "deviceIds": [""],
+    "student_at_institutionIds": [""],
+    "teacher_at_institutionIds": [""],
+    "admin_at_institutionIds": [""],
+    "studyGroupIds": [
+        {
+            "_id": "",
+            "lessonIds": [""],
+            "type": "",
+            "createdBy": "",
+            "updatedBy": "",
+            "name": "",
+            "department": "",
+            "grade": 7,
+            "period": 2023,
+            "curriculum": "",
+            "teacherId": "",
+            "institutionId": "",
+            "createdAt": "",
+            "updatedAt": "",
+            "__v": 0
+        }
+    ],
+    "institutionIds": [""],
+    "badges": [""],
+    "createdBy": null,
+    "updatedBy": "",
+    "parentId": "",
+    "username": "",
+    "email": "",
+    "password": "",
+    "phone": "",
+    "isVerified": false,
+    "verifyExpires": "",
+    "verifyToken": "",
+    "verifyShortToken": "",
+    "createdAt": "",
+    "updatedAt": "",
+    "__v": 0
+}

@@ -1,12 +1,7 @@
-import 'package:edutrack/constants.dart';
+import 'package:edutrack/app/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-
 import 'package:get/get.dart';
-// import 'package:otp_text_field/otp_field.dart';
-// import 'package:otp_text_field/otp_field_style.dart';
-// import 'package:otp_text_field/style.dart';
-
 import '../controllers/login_controller.dart';
 
 // ignore: must_be_immutable
