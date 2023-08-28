@@ -1,5 +1,5 @@
 import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
-import 'package:edutrack/app/config/constants.dart';
+import 'package:edutrack/app/config/edu_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

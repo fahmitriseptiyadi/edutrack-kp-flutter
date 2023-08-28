@@ -1,4 +1,4 @@
-import 'package:edutrack/app/config/color.dart';
+import 'package:edutrack/app/config/edu_color.dart';
 import 'package:flutter/material.dart';
 
 class appTextStyle {

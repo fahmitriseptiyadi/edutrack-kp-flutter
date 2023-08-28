@@ -4,7 +4,7 @@ import 'package:edutrack/app/modules/nilaiujian/views/kuis_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilai_uas_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilai_uts_view.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/ulangan_view.dart';
-import 'package:edutrack/app/config/constants.dart';
+import 'package:edutrack/app/config/edu_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -77,7 +77,7 @@ class NilaiujianView extends GetView<NilaiujianController> {
                 // Navigate to a specific page
                 // Get.to(() => nilai_kuis());
                 print('Kuis Scores Page Pressed');
-                showWaitSnackbar();
+                _showWaitSnackbar();
 
                 Get.offAll(KuisView());
               },
@@ -152,7 +152,7 @@ class GridItem extends StatelessWidget {
   }
 }
 
-showWaitSnackbar() async {
+_showWaitSnackbar() async {
   Get.snackbar(
     'Wait',
     'Fetching data...',

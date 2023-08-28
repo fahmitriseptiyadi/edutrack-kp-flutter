@@ -1,11 +1,25 @@
+import 'package:edutrack/data/datasource/preferences/app_preferences.dart';
+import 'package:edutrack/data/entities/student.dart';
+import 'package:edutrack/domain/usecases/student/get_data_student.dart';
+import 'package:edutrack/utils/failure.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/datasource/remote/student_remote_data_source.dart';
+import '../../../../data/repositories/student/student_repository_impl.dart';
+
 class HomeController extends GetxController {
-  final Dio dio = Dio();
-  String populateStudy = '\$populate=studyGroupIds';
-  String authTokens =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJpYXQiOjE2ODgzNTQ1MDEsImV4cCI6MTY5MDk0NjUwMSwiYXVkIjoiaHR0cHM6Ly9lZGJ4LnBpbmlzaS5pbyIsImlzcyI6ImV4cHJlc3MiLCJzdWIiOiI2MTNmOTQ4MjczN2JhZjdhNDM4MjEyNTciLCJqdGkiOiIxMDI2ZmNhYy0zNjBjLTQyOGMtOTA2ZC03OTZmMDUwYmUxNGMifQ.81pXqOaRMMMWXRjA2P0XFXFFHcokal38eSBNP_MDS8U';
+  @override
+  void onReady() {
+    // TODO: implement onInit
+    super.onReady();
+    print('onInit initialized');
+    studentData();
+  }
+
+  late final GetStudentData getStudentData;
+  late final AppPreferences appPreferences;
   var selectedClass = ''.obs;
   var studentName = ''.obs;
   var parentId = ''.obs;
@@ -16,9 +30,19 @@ class HomeController extends GetxController {
   List<String> classes = [];
   List<String> years = [];
   var selectedTabIndex = 0.obs;
+    final Dio dio = Dio();
 
-  void parentIds(String value) {
-    parentId.value = value;
+  HomeController(this.appPreferences) {
+    final studentRemoteDataSource = StudentRemoteDataSourceImpl(dio: dio);
+    final studentRepositoryImpl = StudentRepositoryImpl(
+      appPreferences: appPreferences,
+      remoteDataSource: studentRemoteDataSource
+    );
+    getStudentData = GetStudentData(studentRepositoryImpl);
+  }
+
+  void parentIds(String? value) {
+    parentId.value = value!;
     print('home parentId : $parentId');
   }
 
@@ -53,52 +77,34 @@ class HomeController extends GetxController {
 
   Future<void> studentData() async {
     try {
-      dio.options.headers['Content-Type'] = 'application/json';
-      dio.options.headers['Authorization'] = 'Bearer $authTokens';
-      final url =
-          'https://edbx.pinisi.io/users?parentId=$parentId&$populateStudy';
+      final pId = appPreferences.idUserLogged;
+      Either<Failure, Student> result = await getStudentData.execute(pId!);
+      result.fold((failure) {
+        print('Error : ${failure.message}');
+      }, (student) {
+        final gradeToRoman = appPreferences.studentGradeSelected;
+        final periodToFormated = appPreferences.studentPeriodSelected;
+        final String gradeRoman = toRomanNumeral(gradeToRoman as int);
+        final String formatedPeriod =
+            getFormatedPeriod(periodToFormated as int);
+        print('Student id : ${appPreferences.studentIdSelected}');
+        print('Student name : ${appPreferences.studentNameSelected}');
+        print('Student grade : ${appPreferences.studentGradeSelected}');
+        print('period : $formatedPeriod');
+        studentName.value = appPreferences.studentNameSelected!;
+        grade.value = gradeRoman;
+        period.value = formatedPeriod;
 
-      final accountDataResponse = await dio.get(url);
-      if (accountDataResponse.statusCode == 200) {
-        final studentAccount = accountDataResponse.data;
-        final username = studentAccount['data'][0]['username'];
-        final studentIdValue = studentAccount['data'][0]['_id'];
-        final studyGroupIds = studentAccount['data'][0]['studyGroupIds'];
+        classes = [gradeRoman];
+        years = [formatedPeriod];
 
-        if (studyGroupIds != null) {
-          final studyGroup = studyGroupIds[0];
-          final gradeValue = studyGroup['grade'] as int;
-          final periodValue = studyGroup['period'] as int;
-          final gradeRoman = toRomanNumeral(gradeValue);
-          final formatedPeriod = getFormatedPeriod(periodValue);
-
-          studentId.value = studentIdValue;
-          studentName.value = username;
-          grade.value = gradeRoman;
-          period.value = formatedPeriod;
-
-          classes = [gradeRoman];
-          years = [formatedPeriod];
-
-          if (selectedClass.value.isEmpty) {
-            selectedClass.value = gradeRoman;
-          }
-
-          if (selectedYear.value.isEmpty) {
-            selectedYear.value = formatedPeriod;
-          }
-
-          print('Student Id : $studentId');
-          print('Username : $studentName');
-          print('Grade : $selectedClass');
-          print('period : $selectedYear');
-        } else {
-          print('No study group found for the student');
+        if (selectedClass.value.isEmpty) {
+          selectedClass.value = gradeRoman;
         }
-      } else {
-        print(
-            'Error retrieving account data: ${accountDataResponse.statusCode}');
-      }
+        if (selectedYear.value.isEmpty) {
+          selectedYear.value = formatedPeriod;
+        }
+      });
     } catch (e) {
       print('Error retrieving account data: $e');
     }

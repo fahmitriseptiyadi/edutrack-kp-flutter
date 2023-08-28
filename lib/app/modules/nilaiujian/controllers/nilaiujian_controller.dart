@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:edutrack/app/modules/nilaiujian/views/nilaiujian_view.dart';
 import 'package:get/get.dart';
-import '../../../config/constants.dart';
+import '../../../config/edu_constants.dart';
 
 class NilaiujianController extends GetxController {
   final Dio _dio = Dio();
   RxDouble score = 0.0.obs;
+  String quizId = "";
 
   @override
   void onInit() {
@@ -29,7 +30,9 @@ class NilaiujianController extends GetxController {
       final data = responseData['data'] as List<dynamic>;
       if (data.isNotEmpty) {
         final scoreData = data[0]['score'] as double;
+        final quizIdData = data[0]['quizId'] as String?;
         print("Score retrieved: $scoreData");
+        print("ID Quiz: $quizIdData");
         score.value = scoreData; // Update the score value
       } else {
         // Handle empty or null data
@@ -50,5 +53,3 @@ class NilaiujianController extends GetxController {
     }
   }
 }
-
-

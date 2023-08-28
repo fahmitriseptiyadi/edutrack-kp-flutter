@@ -7,7 +7,7 @@ import '../controllers/nilaiujian_controller.dart';
 
 import 'package:get/get.dart';
 
-import '../../../config/constants.dart';
+import '../../../config/edu_constants.dart';
 
 class KuisView extends GetView<NilaiujianController> {
   @override

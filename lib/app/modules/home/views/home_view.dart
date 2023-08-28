@@ -1,32 +1,34 @@
+import 'package:edutrack/app/config/edu_color.dart';
+import 'package:edutrack/app/config/edu_constants.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-final HomeController homeController = Get.put(HomeController());
+  // final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: Color.fromARGB(225, 255, 255, 255),
-        body: _homeBody(mediaQuery));
+        body: _body(mediaQuery));
   }
 
-  Widget _homeBody(MediaQueryData mediaQuery) {
+  Widget _body(MediaQueryData mediaQuery) {
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
           child: Column(
             children: [
-              _buildHeader(mediaQuery),
-              _buildBanner(mediaQuery),
-              _buildGridView(mediaQuery),
+              _upheader(mediaQuery),
+              _banner(mediaQuery),
+              _gridview(mediaQuery),
               Obx(() {
-                return _buildBottomNavBar(mediaQuery);
+                return _bottomnavbar(mediaQuery);
               })
             ],
           ),
@@ -35,7 +37,7 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildHeader(MediaQueryData mediaQuery) {
+  Widget _upheader(MediaQueryData mediaQuery) {
     return Container(
       height: mediaQuery.size.height * 0.2,
       padding: EdgeInsets.only(
@@ -48,12 +50,12 @@ final HomeController homeController = Get.put(HomeController());
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade600,
+            color: colorsConfEdutrack.edutrackGreyShade600,
             offset: Offset(0, 4),
             blurRadius: mediaQuery.size.width * 0.08,
           ),
         ],
-        color: Color.fromARGB(255, 2, 65, 2),
+        color: colorsConfEdutrack.edutrackPrimary,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,11 +65,11 @@ final HomeController homeController = Get.put(HomeController());
           ),
           Row(
             children: [
-              _buildAvatar(mediaQuery),
+              _circleavatar(mediaQuery),
               SizedBox(
                 width: mediaQuery.size.width * 0.03,
               ),
-              _buildUserInfo(mediaQuery)
+              _user(mediaQuery)
             ],
           ),
           Row(
@@ -79,8 +81,8 @@ final HomeController homeController = Get.put(HomeController());
                   width: mediaQuery.size.width * 0.11,
                 ),
               ),
-              _buildClassSelection(mediaQuery),
-              _buildYearSelection(mediaQuery)
+              _classdropdown(mediaQuery),
+              _yeardropdown(mediaQuery)
             ],
           )
         ],
@@ -88,14 +90,14 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildAvatar(MediaQueryData mediaQuery) {
+  Widget _circleavatar(MediaQueryData mediaQuery) {
     return Container(
       padding: EdgeInsets.only(top: mediaQuery.size.height * 0.02),
       child: CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorsConfEdutrack.edutrackWhite,
         radius: mediaQuery.size.height * 0.04,
         child: Obx(() {
-          final username = homeController.studentName.value;
+          final username = controller.studentName.value;
           final initials = username.isNotEmpty ? username.substring(0, 2) : '';
           return Text(
             initials,
@@ -106,7 +108,7 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildUserInfo(MediaQueryData mediaQuery) {
+  Widget _user(MediaQueryData mediaQuery) {
     return Container(
       child: Column(
         children: [
@@ -114,7 +116,7 @@ final HomeController homeController = Get.put(HomeController());
             alignment: Alignment.centerLeft,
             width: mediaQuery.size.width * 0.5,
             child: Text(
-              'Assalamualaikum, Orang tua/wali',
+              Constants.greeting,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: mediaQuery.size.width * 0.03,
@@ -128,7 +130,7 @@ final HomeController homeController = Get.put(HomeController());
               alignment: Alignment.centerLeft,
               width: mediaQuery.size.width * 0.5,
               child: Obx(() {
-                final studentName = homeController.studentName.value;
+                final studentName = controller.studentName.value;
                 return Text(
                   studentName.isNotEmpty ? studentName : 'Student Name',
                   style: TextStyle(
@@ -146,16 +148,17 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildClassSelection(MediaQueryData mediaQuery) {
+  Widget _classdropdown(MediaQueryData mediaQuery) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
             child: Text(
-              'Kelas',
+              Constants.gradeText,
               style: TextStyle(
-                  color: Colors.white, fontSize: mediaQuery.size.width * 0.03),
+                  color: colorsConfEdutrack.edutrackWhite,
+                  fontSize: mediaQuery.size.width * 0.03),
             ),
           ),
           SizedBox(
@@ -165,25 +168,25 @@ final HomeController homeController = Get.put(HomeController());
             width: mediaQuery.size.width * 0.14,
             height: mediaQuery.size.height * 0.03,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorsConfEdutrack.edutrackWhite,
                 borderRadius:
                     BorderRadius.circular(mediaQuery.size.width * 0.06)),
             child: Obx(() {
               return DropdownButton<String>(
                   padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                  value: homeController.selectedClass.value,
+                  value: controller.selectedClass.value,
                   onChanged: (newValue) {
-                    homeController.selectedClass.value = newValue!;
+                    controller.selectedClass.value = newValue!;
                   },
                   isExpanded: true,
-                  items: homeController.classes
+                  items: controller.classes
                       .map<DropdownMenuItem<String>>(
                           (String value) => DropdownMenuItem(
                                 value: value,
                                 child: Text(
                                   value,
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: colorsConfEdutrack.edutrackBlack,
                                       fontSize: mediaQuery.size.width * 0.03),
                                 ),
                               ))
@@ -195,16 +198,17 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildYearSelection(MediaQueryData mediaQuery) {
+  Widget _yeardropdown(MediaQueryData mediaQuery) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
             child: Text(
-              'Tahun ajaran',
+              Constants.periodText,
               style: TextStyle(
-                  color: Colors.white, fontSize: mediaQuery.size.width * 0.03),
+                  color: colorsConfEdutrack.edutrackWhite,
+                  fontSize: mediaQuery.size.width * 0.03),
             ),
           ),
           SizedBox(
@@ -214,18 +218,18 @@ final HomeController homeController = Get.put(HomeController());
             width: mediaQuery.size.width * 0.24,
             height: mediaQuery.size.height * 0.03,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorsConfEdutrack.edutrackWhite,
                 borderRadius:
                     BorderRadius.circular(mediaQuery.size.width * 0.06)),
             child: Obx(() {
               return DropdownButton<String>(
                   padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                  value: homeController.selectedYear.value,
+                  value: controller.selectedYear.value,
                   onChanged: (newValue) {
-                    homeController.selectedYear.value = newValue!;
+                    controller.selectedYear.value = newValue!;
                   },
                   isExpanded: true,
-                  items: homeController.years
+                  items: controller.years
                       .map<DropdownMenuItem<String>>(
                           (String value) => DropdownMenuItem(
                                 value: value,
@@ -244,15 +248,15 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildBanner(MediaQueryData mediaQuery) {
+  Widget _banner(MediaQueryData mediaQuery) {
     return Container(
       width: mediaQuery.size.width,
       height: mediaQuery.size.height * 0.22,
-      decoration: BoxDecoration(color: Color.fromARGB(0, 255, 255, 255)),
+      decoration: BoxDecoration(color: Colors.transparent),
     );
   }
 
-  Widget _buildGridView(MediaQueryData mediaQueary) {
+  Widget _gridview(MediaQueryData mediaQueary) {
     return GridView.builder(
       padding: EdgeInsets.all(mediaQueary.size.width * 0.04),
       shrinkWrap: true,
@@ -263,30 +267,6 @@ final HomeController homeController = Get.put(HomeController());
           mainAxisSpacing: mediaQueary.size.width * 0.08),
       itemCount: 9,
       itemBuilder: (context, index) {
-        List<String> itemDesc = [
-          'Biaya Sekolah',
-          'Kehadiran',
-          'Progress',
-          'Nilai Ujian',
-          'eRapor',
-          'Tugas',
-          'Jadwal Pelajaran',
-          'Lembar Komunikasi',
-          'Pengumuman'
-        ];
-
-        List<IconData> listIcon = [
-          Icons.account_balance_wallet,
-          Icons.alarm,
-          Icons.bar_chart,
-          Icons.book,
-          Icons.school,
-          Icons.task,
-          Icons.calendar_month,
-          Icons.chat_bubble,
-          Icons.volume_up
-        ];
-
         return GestureDetector(
           onTap: () {
             // Handle the box press event
@@ -318,12 +298,12 @@ final HomeController homeController = Get.put(HomeController());
                 child: Container(
                   key: ValueKey('item_$index'),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colorsConfEdutrack.edutrackWhite,
                     borderRadius:
                         BorderRadius.circular(mediaQueary.size.width * 0.06),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.shade600,
+                        color: colorsConfEdutrack.edutrackGreyShade600,
                         offset: Offset(0, 4),
                         blurRadius: mediaQueary.size.width * 0.03,
                       ),
@@ -331,8 +311,8 @@ final HomeController homeController = Get.put(HomeController());
                   ),
                   child: Center(
                     child: Icon(
-                      listIcon[index],
-                      color: Colors.black,
+                      Constants.iconMenu[index],
+                      color: colorsConfEdutrack.edutrackBlack,
                       size: mediaQueary.size.width * 0.12,
                     ),
                   ),
@@ -342,9 +322,9 @@ final HomeController homeController = Get.put(HomeController());
                   height: mediaQueary.size.height *
                       0.01), // Adjust the spacing as needed
               Text(
-                itemDesc[index],
+                Constants.itemDesc[index],
                 style: TextStyle(
-                  color: Colors.black,
+                  color: colorsConfEdutrack.edutrackBlack,
                   fontSize: mediaQueary.size.width * 0.03,
                 ),
               ),
@@ -355,7 +335,7 @@ final HomeController homeController = Get.put(HomeController());
     );
   }
 
-  Widget _buildBottomNavBar(MediaQueryData mediaQuery) {
+  Widget _bottomnavbar(MediaQueryData mediaQuery) {
     return BottomNavigationBar(
       currentIndex: controller.selectedTabIndex.value,
       onTap: (index) {
